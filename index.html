@@ -352,12 +352,23 @@
   fetch("https://api.github.com/repos/mid30084/beatport-tagger-releases/releases/latest")
     .then(r => r.json())
     .then(data => {
+      const assets = data.assets || [];
+      const mac = assets.find(a => a.name.includes("mac"));
+      const win = assets.find(a => a.name.includes("Setup") || a.name.includes("win"));
       const tag = data.tag_name || "";
+
       // обе пары кнопок на странице (hero + финальный CTA "download" секция) —
-      // getElementById по каждому id, ни одна кнопка не остаётся без версии
-      ["mac-version", "win-version", "mac-version-hero", "win-version-hero"].forEach(id => {
+      // одна и та же проверка наличия ассета применяется к обеим парам, ни
+      // одна кнопка не остаётся без версии (расширено сверх дословного
+      // скрипта задачи, который знал только про mac-version/win-version —
+      // см. KNOWLEDGE.md)
+      ["mac-version", "mac-version-hero"].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.textContent = tag;
+        if (el) el.textContent = mac ? tag : "";
+      });
+      ["win-version", "win-version-hero"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = win ? tag : "";
       });
     })
     .catch(() => {});
