@@ -321,6 +321,7 @@
           Download for Windows
         </a>
       </div>
+      <p class="meta-note" id="latest-version">Latest version: loading...</p>
     </div>
   </section>
 </main>
@@ -347,6 +348,15 @@
     if(mac){ m.insertAdjacentHTML('beforeend','<span class="rec">for your Mac</span>'); }
     else if(win){ w.insertAdjacentHTML('beforeend','<span class="rec">for your PC</span>'); }
   })();
+</script>
+<script>
+  fetch("https://api.github.com/repos/mid30084/beatport-tagger-releases/releases/latest")
+    .then(r => r.json())
+    .then(data => {
+      const el = document.getElementById("latest-version");
+      if (el && data.tag_name) el.textContent = "Latest version: " + data.tag_name;
+    })
+    .catch(() => {});
 </script>
 </body>
 </html>
