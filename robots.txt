@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beatporttagger.pitchclub.app/sitemap.xml
