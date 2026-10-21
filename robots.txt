@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://beatporttagger.pitchclub.app/sitemap.xml
+Sitemap: https://deckready.pitchclub.app/sitemap.xml
